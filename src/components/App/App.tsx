@@ -10,10 +10,9 @@ import MovieModal from "../MovieModal/MovieModal";
 
 export default function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [selectedMovie, setSelectedMovie] = useState<Movie>();
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [isLoader, setLoader] = useState<boolean>(false);
   const [isError, setError] = useState<boolean>(false);
-  const [isModal, setModal] = useState<boolean>(false);
 
   const onSubmit = async (formData: FormData): Promise<void> => {
     const query = (formData.get("query") as string).trim();
@@ -30,19 +29,17 @@ export default function App() {
       }
 
       setMovies(movies);
-    } catch (e) {
+    } catch {
       setError(true);
-      console.log(e);
     } finally {
       setLoader(false);
     }
   };
 
   const onSelect = (movie: Movie) => {
-    setModal(true);
     setSelectedMovie(movie);
   };
-  const onClose = () => setModal(false);
+  const onClose = () => setSelectedMovie(null);
 
   return (
     <>
@@ -55,7 +52,7 @@ export default function App() {
         Boolean(movies.length) && (
           <>
             <MovieGrid movies={movies} onSelect={onSelect} />
-            {isModal && selectedMovie && (
+            {selectedMovie && (
               <MovieModal movie={selectedMovie} onClose={onClose} />
             )}
           </>

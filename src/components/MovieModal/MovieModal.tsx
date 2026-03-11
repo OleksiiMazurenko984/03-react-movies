@@ -57,7 +57,7 @@ export default function MovieModal({
             <strong>Release Date:</strong> {release_date}
           </p>
           <p>
-            <strong>Rating:</strong> {vote_average}
+            <strong>Rating:</strong> {vote_average}/10
           </p>
         </div>
       </div>
