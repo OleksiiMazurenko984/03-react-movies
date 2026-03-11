@@ -14,9 +14,7 @@ export default function App() {
   const [isLoader, setLoader] = useState<boolean>(false);
   const [isError, setError] = useState<boolean>(false);
 
-  const onSubmit = async (formData: FormData): Promise<void> => {
-    const query = (formData.get("query") as string).trim();
-
+  const onSubmit = async (query: string): Promise<void> => {
     try {
       setLoader(true);
       setError(false);
